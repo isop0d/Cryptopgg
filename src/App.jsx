@@ -1,16 +1,22 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
+import Navbar from './components/Navbar'
+import Home from './components/Home'
+import Forum from './components/Forum'
 
 function App() {
-
-  const heliuskey = import.meta.env.VITE_HELIUS_API_KEY;
-
-  const url = `https://api.helius.xyz/v0/addresses/${wallet}/balances?api-key=${heliusKey}`;
-
   return (
-    <div>
-      
-    </div>
+    <Router>
+      <div className='App'>
+        <Navbar />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/forum" element={<Forum />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   )
 }
 

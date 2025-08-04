@@ -1,6 +1,234 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Navigation Styles */
+.navbar {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 1rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #0f3460;
+  width: 100%;
+}
+
+.nav-container {
+  width: 100%;
+  margin: 0;
+  padding: 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo a {
+  color: #4fc3f7;
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.nav-link:hover {
+  background-color: rgba(79, 195, 247, 0.1);
+  border-color: #4fc3f7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(79, 195, 247, 0.3);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  padding: 2rem 3rem;
+}
+
+/* Home Page Styles */
+.home {
   text-align: center;
+  padding: 3rem 0;
+  width: 100%;
+}
+
+.home-content {
+  width: 100%;
+}
+
+.home-content h1 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+}
+
+.home-content > p {
+  font-size: 1.4rem;
+  color: #b0bec5;
+  margin-bottom: 4rem;
+  width: 100%;
+  line-height: 1.6;
+}
+
+.home-features {
+  width: 100%;
+}
+
+/* Forum Styles */
+.forum {
+  padding: 3rem 0;
+  width: 100%;
+}
+
+.forum-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  width: 100%;
+}
+
+.forum-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+}
+
+.forum-header p {
+  font-size: 1.3rem;
+  color: #b0bec5;
+  width: 100%;
+  line-height: 1.6;
+}
+
+.forum-categories {
+  width: 100%;
+}
+
+.forum-categories h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #ffffff;
+  font-size: 2.5rem;
+  text-shadow: 0 0 20px rgba(79, 195, 247, 0.3);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  width: 100%;
+}
+
+.category-card {
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 1px solid #0f3460;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(79, 195, 247, 0.2);
+  border-color: #4fc3f7;
+}
+
+.category-card h3 {
+  color: #4fc3f7;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  text-shadow: 0 0 10px rgba(79, 195, 247, 0.3);
+}
+
+.category-card p {
+  color: #b0bec5;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Desktop-specific optimizations */
+@media (min-width: 1024px) {
+  .nav-container {
+    padding: 0 4rem;
+  }
+  
+  .main-content {
+    padding: 3rem 4rem;
+  }
+  
+  .home-content h1 {
+    font-size: 5rem;
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1440px) {
+  .nav-container {
+    padding: 0 6rem;
+  }
+  
+  .main-content {
+    padding: 4rem 6rem;
+  }
+  
+  .home-content h1 {
+    font-size: 6rem;
+  }
 }
