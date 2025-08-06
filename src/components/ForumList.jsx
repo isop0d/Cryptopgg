@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 
 function ForumList() {
+    const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [expandedPosts, setExpandedPosts] = useState(new Set());
@@ -11,6 +13,7 @@ function ForumList() {
     const [userVotes, setUserVotes] = useState({});
     const [filterBy, setFilterBy] = useState('newest'); // newest, mostComments, mostUpvotes
     const [filteredPosts, setFilteredPosts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         fetchPosts();
@@ -361,14 +364,24 @@ function ForumList() {
 
     // Filter and sort posts
     useEffect(() => {
-        let sorted = [...posts];
+        let filtered = [...posts];
         
+        // Apply search filter
+        if (searchTerm.trim()) {
+            const searchLower = searchTerm.toLowerCase().trim();
+            filtered = filtered.filter(post => 
+                post.title.toLowerCase().includes(searchLower) ||
+                post.description.toLowerCase().includes(searchLower)
+            );
+        }
+        
+        // Apply sorting
         switch (filterBy) {
             case 'mostComments':
-                sorted.sort((a, b) => (b.commentCount || 0) - (a.commentCount || 0));
+                filtered.sort((a, b) => (b.commentCount || 0) - (a.commentCount || 0));
                 break;
             case 'mostUpvotes':
-                sorted.sort((a, b) => {
+                filtered.sort((a, b) => {
                     const aVotes = votes[a.id]?.total || 0;
                     const bVotes = votes[b.id]?.total || 0;
                     return bVotes - aVotes;
@@ -376,12 +389,16 @@ function ForumList() {
                 break;
             case 'newest':
             default:
-                sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                 break;
         }
         
-        setFilteredPosts(sorted);
-    }, [posts, votes, filterBy]);
+        setFilteredPosts(filtered);
+    }, [posts, votes, filterBy, searchTerm]);
+
+    const handlePostClick = (postId) => {
+        navigate(`/forum/post/${postId}`);
+    };
 
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString('en-US', {
@@ -414,23 +431,62 @@ function ForumList() {
     return (
         <div className="forum-list">
             <div className="forum-filters">
-                <label htmlFor="filter-select">Sort by:</label>
-                <select 
-                    id="filter-select"
-                    value={filterBy} 
-                    onChange={(e) => setFilterBy(e.target.value)}
-                    className="filter-select"
-                >
-                    <option value="newest">Newest First</option>
-                    <option value="mostComments">Most Comments</option>
-                    <option value="mostUpvotes">Most Upvotes</option>
-                </select>
+                <div className="search-section">
+                    <label htmlFor="search-input">Search posts:</label>
+                    <input
+                        id="search-input"
+                        type="text"
+                        placeholder="Search by title or description..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="search-input"
+                    />
+                    {searchTerm && (
+                        <button 
+                            className="clear-search-btn"
+                            onClick={() => setSearchTerm('')}
+                            title="Clear search"
+                        >
+                            ×
+                        </button>
+                    )}
+                </div>
+                
+                <div className="sort-section">
+                    <label htmlFor="filter-select">Sort by:</label>
+                    <select 
+                        id="filter-select"
+                        value={filterBy} 
+                        onChange={(e) => setFilterBy(e.target.value)}
+                        className="filter-select"
+                    >
+                        <option value="newest">Newest First</option>
+                        <option value="mostComments">Most Comments</option>
+                        <option value="mostUpvotes">Most Upvotes</option>
+                    </select>
+                </div>
             </div>
+            
+            {searchTerm && (
+                <div className="search-results-info">
+                    {filteredPosts.length === 0 ? (
+                        <p>No posts found matching "{searchTerm}"</p>
+                    ) : (
+                        <p>Found {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} matching "{searchTerm}"</p>
+                    )}
+                </div>
+            )}
             
             {filteredPosts.map(post => (
                 <div key={post.id} className="post-card">
                     <div className="post-header">
-                        <h3 className="post-title">{post.title}</h3>
+                        <h3 
+                            className="post-title clickable" 
+                            onClick={() => handlePostClick(post.id)}
+                            title="Click to view full post"
+                        >
+                            {post.title}
+                        </h3>
                         <button 
                             className="delete-btn"
                             onClick={() => handleDeletePost(post.id)}
@@ -442,6 +498,14 @@ function ForumList() {
                     
                     <div className="post-content">
                         <p className="post-description">{post.description}</p>
+                        
+                        {post.image_url && (
+                            <div className="post-image-indicator">
+                                <span className="image-icon">📷</span>
+                                <span className="image-text">This post contains an image - click to view</span>
+                            </div>
+                        )}
+                        
                         <div className="post-meta">
                             <span className="post-date">{formatDate(post.created_at)}</span>
                             <span className="post-stats">
