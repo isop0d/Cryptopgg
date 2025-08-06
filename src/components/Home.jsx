@@ -3,7 +3,7 @@ function Home() {
         <div className="home">
             <div className="home-content">
                 <h1>Welcome to CryptOP.GG</h1>
-                <p></p>
+                <p>The Best Place for trading stats and discussions!</p>
             </div>
         </div>
     )

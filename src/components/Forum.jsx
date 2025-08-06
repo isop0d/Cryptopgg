@@ -1,12 +1,13 @@
+import ForumList from './ForumList';
+
 function Forum() {
     return (
         <div className='forum'>
             <div className="forum-header">
-                <h1>Community Forum</h1>
-                <p>Join the conversation with fellow crypto enthusiasts</p>
+                <h1>Crypto Discussion Forum</h1>
+                <p>Share your thoughts, insights, and questions about cryptocurrency</p>
             </div>
-            <div className="forum-content">
-            </div>
+            <ForumList />
         </div>
     )
 }

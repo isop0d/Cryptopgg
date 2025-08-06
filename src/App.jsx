@@ -3,6 +3,7 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Forum from './components/Forum'
+import CreatePost from './components/CreatePost'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/forum" element={<Forum />} />
+            <Route path="/forum/create-post" element={<CreatePost />} />
           </Routes>
         </main>
       </div>
