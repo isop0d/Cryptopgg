@@ -44,7 +44,7 @@ The following **required** functionality is completed:
 * [x] List anything else that you added to improve the site's functionality!
 
 
-<img src='./src/assets/ForumsWalkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='./src/assets/VideoWalkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with Screentogif 
