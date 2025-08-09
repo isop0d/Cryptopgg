@@ -1,4 +1,4 @@
-# Web Development Final Project - *CryptOP.GG*
+# Web Development Final Project - *Crypto Forum*
 
 Submitted by: **Stefan Fernnandez**
 
@@ -51,13 +51,6 @@ GIF created with Screentogif
 <!-- 
 [ScreenToGif](https://www.screentogif.com/) for Windows
 -->
-
-Future Additions:
-- Crpyto wallet integration
-- User account registration
-- Crypto Trading stats
-- Group creations?
-- Tournaments?
 
 ## License
 
