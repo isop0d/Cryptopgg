@@ -4,8 +4,6 @@ Submitted by: **Stefan Fernnandez**
 
 This web app: **CryptOP.GG**
 
-Time spent: **6** hours spent in total
-
 ## Required Features
 
 The following **required** functionality is completed:
