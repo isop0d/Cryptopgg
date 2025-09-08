@@ -17,6 +17,9 @@ function Navbar() {
                     <li className="nav-item">
                         <Link to="/forum/create-post" className="nav-link">Create Post</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link to="/forum/sign-up" className="nav-link">Sign Up</Link>
+                    </li>
                 </ul>
             </div>
         </nav>
